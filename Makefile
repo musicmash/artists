@@ -1,6 +1,6 @@
 all:
 
-build:
+build: install
 	go build -v -o ./bin/artists ./cmd/artists/...
 	go build -v -o ./bin/artistsctl ./cmd/artistsctl/...
 
