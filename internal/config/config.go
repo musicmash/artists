@@ -17,9 +17,8 @@ type AppConfig struct {
 }
 
 type LogConfig struct {
-	File          string `yaml:"file"`
-	Level         string `yaml:"level"`
-	SyslogEnabled bool   `yaml:"syslog_enable"`
+	File  string `yaml:"file"`
+	Level string `yaml:"level"`
 }
 
 type DBConfig struct {

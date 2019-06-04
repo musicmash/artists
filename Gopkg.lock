@@ -105,12 +105,9 @@
   version = "v2.4"
 
 [[projects]]
-  digest = "1:0a406a3f53396d476d8673920e58a1100ed706e3e6666a0355e6d32cb3430651"
+  digest = "1:04457f9f6f3ffc5fea48e71d62f2ca256637dee0a04d710288e27e05c8b41976"
   name = "github.com/sirupsen/logrus"
-  packages = [
-    ".",
-    "hooks/syslog",
-  ]
+  packages = ["."]
   pruneopts = "UT"
   revision = "839c75faf7f98a33d445d181f3018b5c3409a45e"
   version = "v1.4.2"
@@ -215,7 +212,6 @@
     "github.com/pkg/errors",
     "github.com/rifflock/lfshook",
     "github.com/sirupsen/logrus",
-    "github.com/sirupsen/logrus/hooks/syslog",
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
     "github.com/zmb3/spotify",

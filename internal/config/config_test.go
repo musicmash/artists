@@ -21,7 +21,6 @@ db:
 log:
   level: DEBUG
   file: 'musicmash-artists.log'
-  syslog_enable: false
 
 http:
   port: 5566
