@@ -17,11 +17,11 @@ const (
 var DefaultFormatter = logrus.TextFormatter{FullTimestamp: true, TimestampFormat: timeFormat}
 
 func ConfigureStdLogger(logLevel string) {
-	Infof("Applying loglevel %v...", logLevel)
+	Infof("applying loglevel %v", logLevel)
 
 	lvl, err := logrus.ParseLevel(logLevel)
 	if err != nil {
-		Errorf("Cannot parse loglevel %v: %v, setting default loglevel INFO.", logLevel, err)
+		Errorf("cannot parse loglevel %v: %v, setting default loglevel INFO", logLevel, err)
 		lvl = logrus.InfoLevel
 	}
 
@@ -41,7 +41,7 @@ func ConfigureStdLogger(logLevel string) {
 		if err == nil {
 			logger.Hooks.Add(hook)
 		} else {
-			Errorf("Failed to configure syslog hook: %v", err)
+			Errorf("failed to configure syslog hook: %v", err)
 		}
 	}
 }
