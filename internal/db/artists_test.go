@@ -38,11 +38,11 @@ func TestDB_Artists_Search(t *testing.T) {
 	defer teardown()
 
 	// arrange
-	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistSkrillex}))
-	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistArchitects}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistSkrillex, Followers: 100}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistArchitects, Followers: 250}))
 	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistSPY}))
-	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistWildways}))
-	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistRitaOra}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistWildways, Followers: 50}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{Name: vars.ArtistRitaOra, Followers: 90}))
 	want := []struct {
 		SearchText string
 		Artists    []string

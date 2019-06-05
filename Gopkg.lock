@@ -37,6 +37,14 @@
   version = "v1.3.1"
 
 [[projects]]
+  digest = "1:870d441fe217b8e689d7949fef6e43efbc787e50f200cb1e70dbca9204a1d6be"
+  name = "github.com/inconshreveable/mousetrap"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+  version = "v1.0"
+
+[[projects]]
   digest = "1:af001a33c8c1bf6e1dd0d5577f4439b117af0518362e560000aa2e559c59b3bd"
   name = "github.com/jinzhu/gorm"
   packages = [
@@ -97,15 +105,28 @@
   version = "v2.4"
 
 [[projects]]
-  digest = "1:0a406a3f53396d476d8673920e58a1100ed706e3e6666a0355e6d32cb3430651"
+  digest = "1:04457f9f6f3ffc5fea48e71d62f2ca256637dee0a04d710288e27e05c8b41976"
   name = "github.com/sirupsen/logrus"
-  packages = [
-    ".",
-    "hooks/syslog",
-  ]
+  packages = ["."]
   pruneopts = "UT"
   revision = "839c75faf7f98a33d445d181f3018b5c3409a45e"
   version = "v1.4.2"
+
+[[projects]]
+  digest = "1:22799aea8fe96dd5693abdd1eaa14b1b29e3eafbdc7733fa155b3cb556c8a7ae"
+  name = "github.com/spf13/cobra"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "67fc4837d267bc9bfd6e47f77783fcc3dffc68de"
+  version = "v0.0.4"
+
+[[projects]]
+  digest = "1:c1b1102241e7f645bc8e0c22ae352e8f0dc6484b6cb4d132fa9f24174e0119e2"
+  name = "github.com/spf13/pflag"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "298182f68c66c05229eb03ac171abe6e309ee79a"
+  version = "v1.0.3"
 
 [[projects]]
   digest = "1:972c2427413d41a1e06ca4897e8528e5a1622894050e2f527b38ddf0f343f759"
@@ -191,7 +212,7 @@
     "github.com/pkg/errors",
     "github.com/rifflock/lfshook",
     "github.com/sirupsen/logrus",
-    "github.com/sirupsen/logrus/hooks/syslog",
+    "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
     "github.com/zmb3/spotify",
     "golang.org/x/oauth2/clientcredentials",

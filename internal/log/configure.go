@@ -1,13 +1,11 @@
 package log
 
 import (
-	"log/syslog"
 	"os"
 
 	"github.com/musicmash/artists/internal/config"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
-	logrus_syslog "github.com/sirupsen/logrus/hooks/syslog"
 )
 
 const (
@@ -17,11 +15,11 @@ const (
 var DefaultFormatter = logrus.TextFormatter{FullTimestamp: true, TimestampFormat: timeFormat}
 
 func ConfigureStdLogger(logLevel string) {
-	Infof("Applying loglevel %v...", logLevel)
+	Infof("applying loglevel %v", logLevel)
 
 	lvl, err := logrus.ParseLevel(logLevel)
 	if err != nil {
-		Errorf("Cannot parse loglevel %v: %v, setting default loglevel INFO.", logLevel, err)
+		Errorf("cannot parse loglevel %v: %v, setting default loglevel INFO", logLevel, err)
 		lvl = logrus.InfoLevel
 	}
 
@@ -33,16 +31,6 @@ func ConfigureStdLogger(logLevel string) {
 
 	if path != "" {
 		configureFileLogger(path)
-	}
-
-	if config.Config.Log.SyslogEnabled {
-		hook, err := logrus_syslog.NewSyslogHook("", "", syslog.LOG_LOCAL0, "musicmash-artists")
-
-		if err == nil {
-			logger.Hooks.Add(hook)
-		} else {
-			Errorf("Failed to configure syslog hook: %v", err)
-		}
 	}
 }
 

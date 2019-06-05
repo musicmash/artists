@@ -37,7 +37,8 @@ func (mgr *AppDatabaseMgr) GetAllArtists() ([]*Artist, error) {
 func (mgr *AppDatabaseMgr) SearchArtists(name string) ([]*Artist, error) {
 	artists := []*Artist{}
 	name = fmt.Sprintf("%%%s%%", html.EscapeString(name))
-	if err := mgr.db.Where("name LIKE ?", name).Order("name").Find(&artists).Error; err != nil {
+	query := mgr.db.Where("name LIKE ?", name).Order("followers desc").Limit(100)
+	if err := query.Find(&artists).Error; err != nil {
 		return nil, err
 	}
 	return artists, nil
