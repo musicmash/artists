@@ -13,7 +13,7 @@ func TestConfig_Load(t *testing.T) {
 db:
   type:  'mysql'
   host:  'mariadb'
-  name:  'ƒartists'
+  name:  'artists'
   login: 'artists'
   pass:  'artists'
   log: false
