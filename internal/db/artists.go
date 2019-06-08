@@ -24,6 +24,7 @@ type ArtistMgr interface {
 	EnsureArtistExists(artist *Artist) error
 	GetAllArtists() ([]*Artist, error)
 	SearchArtists(name string) ([]*Artist, error)
+	ValidateArtists(artists *[]int64) error
 }
 
 func (mgr *AppDatabaseMgr) GetAllArtists() ([]*Artist, error) {
@@ -46,6 +47,10 @@ func (mgr *AppDatabaseMgr) SearchArtists(name string) ([]*Artist, error) {
 
 func (mgr *AppDatabaseMgr) EnsureArtistExists(artist *Artist) error {
 	return mgr.db.Create(artist).Error
+}
+
+func (mgr *AppDatabaseMgr) ValidateArtists(artists *[]int64) error {
+	return mgr.db.Table("artists").Where("id in (?)", *artists).Pluck("id", artists).Error
 }
 
 type ArtistStoreInfoMgr interface {
