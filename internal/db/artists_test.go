@@ -98,3 +98,25 @@ func TestDB_ArtistStoreInfo_GetArtistFromStore(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Len(t, artists, 2)
 }
+
+func TestDB_Artists_Validate(t *testing.T) {
+	setup()
+	defer teardown()
+
+	// arrange
+	artists := []int64{1, 5, 10, 420, 69, 333, 999}
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{ID: 1, Name: vars.ArtistSkrillex, Followers: 100}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{ID: 2, Name: vars.ArtistArchitects, Followers: 250}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{ID: 3, Name: vars.ArtistSPY}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{ID: 4, Name: vars.ArtistWildways, Followers: 50}))
+	assert.NoError(t, DbMgr.EnsureArtistExists(&Artist{ID: 5, Name: vars.ArtistRitaOra, Followers: 90}))
+
+	// action
+	err := DbMgr.ValidateArtists(&artists)
+
+	// assert
+	assert.NoError(t, err)
+	assert.Len(t, artists, 2)
+	assert.Equal(t, int64(1), artists[0])
+	assert.Equal(t, int64(5), artists[1])
+}
