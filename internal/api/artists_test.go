@@ -75,3 +75,30 @@ func TestAPI_Artists_Validate(t *testing.T) {
 	assert.Equal(t, int64(1), artists[0])
 	assert.Equal(t, int64(5), artists[1])
 }
+
+func TestAPI_Artists_GetWithFullInfo(t *testing.T) {
+	setup()
+	defer teardown()
+
+	// arrange
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{ID: 1, Name: vars.ArtistSkrillex, Followers: 100}))
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{ID: 2, Name: vars.ArtistArchitects, Followers: 250}))
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{ID: 3, Name: vars.ArtistSPY}))
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{ID: 4, Name: vars.ArtistWildways, Followers: 50}))
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{ID: 5, Name: vars.ArtistRitaOra, Followers: 90}))
+
+	// action
+	artists, err := artists.GetFullInfo(client, []int64{1, 5, 10, 420, 69, 333, 999})
+
+	// assert
+	assert.NoError(t, err)
+	assert.Len(t, artists, 2)
+
+	assert.Equal(t, int64(1), artists[0].ID)
+	assert.Equal(t, vars.ArtistSkrillex, artists[0].Name)
+	assert.Equal(t, uint(100), artists[0].Followers)
+
+	assert.Equal(t, int64(5), artists[1].ID)
+	assert.Equal(t, vars.ArtistRitaOra, artists[1].Name)
+	assert.Equal(t, uint(90), artists[1].Followers)
+}
