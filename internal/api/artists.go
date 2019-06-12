@@ -4,23 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/musicmash/artists/internal/db"
 	"github.com/musicmash/artists/internal/log"
 )
 
-func getArtists(w http.ResponseWriter, r *http.Request) {
-	stores, provided := r.URL.Query()["store"]
-	if !provided {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	if len(stores[0]) == 0 {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	artists, err := db.DbMgr.GetArtistsForStore(stores[0])
+func getArtistsFromStore(w http.ResponseWriter, r *http.Request) {
+	artists, err := db.DbMgr.GetArtistsForStore(chi.URLParam(r, "store"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Error(err)
@@ -52,6 +42,36 @@ func validateArtists(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := db.DbMgr.ValidateArtists(&artists); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Error(err)
+		return
+	}
+
+	bytes, err := json.Marshal(&artists)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Error(err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(bytes)
+}
+
+func getArtists(w http.ResponseWriter, r *http.Request) {
+	ids := []int64{}
+	if err := json.NewDecoder(r.Body).Decode(&ids); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if len(ids) == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	artists, err := db.DbMgr.GetArtistsWithFullInfo(ids)
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Error(err)
 		return
