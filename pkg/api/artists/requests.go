@@ -9,8 +9,8 @@ import (
 	"github.com/musicmash/artists/pkg/api"
 )
 
-func Get(provider *api.Provider, storeName string) ([]*Info, error) {
-	url := fmt.Sprintf("%s/artists?store=%s", provider.URL, storeName)
+func GetFromStore(provider *api.Provider, storeName string) ([]*Info, error) {
+	url := fmt.Sprintf("%s/artists/store/%s", provider.URL, storeName)
 	resp, err := provider.Client.Get(url)
 	if err != nil {
 		return nil, err

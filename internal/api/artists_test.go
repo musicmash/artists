@@ -21,7 +21,7 @@ func TestAPI_Artists_GetForStore(t *testing.T) {
 	assert.NoError(t, db.DbMgr.EnsureArtistExistsInStore(2, vars.StoreApple, vars.StoreIDB))
 
 	// action
-	artists, err := artists.Get(client, vars.StoreApple)
+	artists, err := artists.GetFromStore(client, vars.StoreApple)
 
 	// assert
 	assert.NoError(t, err)
@@ -48,7 +48,7 @@ func TestAPI_Artists_GetForStore_Empty(t *testing.T) {
 	assert.NoError(t, db.DbMgr.EnsureArtistExistsInStore(2, vars.StoreApple, vars.StoreIDB))
 
 	// action
-	artists, err := artists.Get(client, vars.StoreDeezer)
+	artists, err := artists.GetFromStore(client, vars.StoreDeezer)
 
 	// assert
 	assert.NoError(t, err)

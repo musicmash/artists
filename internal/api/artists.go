@@ -4,23 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/musicmash/artists/internal/db"
 	"github.com/musicmash/artists/internal/log"
 )
 
-func getArtists(w http.ResponseWriter, r *http.Request) {
-	stores, provided := r.URL.Query()["store"]
-	if !provided {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	if len(stores[0]) == 0 {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	artists, err := db.DbMgr.GetArtistsForStore(stores[0])
+func getArtistsFromStore(w http.ResponseWriter, r *http.Request) {
+	artists, err := db.DbMgr.GetArtistsForStore(chi.URLParam(r, "store"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Error(err)

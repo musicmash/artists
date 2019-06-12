@@ -21,7 +21,7 @@ func getMux() *chi.Mux {
 	r.Get("/healthz", healthz)
 	r.Get("/v1/search", doSearch)
 	r.Post("/v1/validate", validateArtists)
-	r.Get("/v1/artists", getArtists)
+	r.Get("/v1/artists/store/{store}", getArtistsFromStore)
 	return r
 }
 
