@@ -29,6 +29,24 @@ func TestAPI_Search(t *testing.T) {
 	assert.Equal(t, vars.ArtistArchitects, artists[0].Name)
 }
 
+func TestAPI_Search_NameWithSpaces(t *testing.T) {
+	setup()
+	defer teardown()
+
+	// arrange
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{Name: vars.ArtistArchitects}))
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{Name: vars.ArtistSkrillex}))
+	assert.NoError(t, db.DbMgr.EnsureArtistExists(&db.Artist{Name: vars.ArtistRitaOra}))
+
+	// action
+	artists, err := search.Do(client, vars.ArtistRitaOra)
+
+	// assert
+	assert.NoError(t, err)
+	assert.Len(t, artists, 1)
+	assert.Equal(t, vars.ArtistRitaOra, artists[0].Name)
+}
+
 func TestAPI_Search_NotFound(t *testing.T) {
 	setup()
 	defer teardown()
