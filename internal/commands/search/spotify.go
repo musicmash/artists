@@ -26,13 +26,13 @@ func sortArtistsByPopularity(artists []spotify.FullArtist) []spotify.FullArtist 
 	return artists
 }
 
-func processArtists(client spotify.Client, artists []spotify.FullArtist) {
+func processArtists(artists []spotify.FullArtist) {
 	for _, artist := range artists {
-		processArtist(client, artist)
+		processArtist(artist)
 	}
 }
 
-func processArtist(client spotify.Client, artist spotify.FullArtist) {
+func processArtist(artist spotify.FullArtist) {
 	if exists := db.DbMgr.IsArtistExistsInStore(storeName, artist.ID.String()); exists && !opts.forceSearchAndSave {
 		log.Warn(artist.ID, artist.Name, "already exists")
 		return
@@ -69,7 +69,7 @@ func loadAndProcessAlbums(client spotify.Client, artistID spotify.ID, dbArtistID
 		tx.Rollback()
 	}
 
-	processAlbums(client, albumPage.Albums, dbArtistID, tx)
+	processAlbums(albumPage.Albums, dbArtistID, tx)
 
 	for albumPage.Total > albumPage.Limit+albumPage.Offset {
 		albumPage.Offset += albumPage.Limit
@@ -85,19 +85,19 @@ func loadAndProcessAlbums(client spotify.Client, artistID spotify.ID, dbArtistID
 			log.Panic(err)
 		}
 
-		processAlbums(client, albumPage.Albums, dbArtistID, tx)
+		processAlbums(albumPage.Albums, dbArtistID, tx)
 	}
 	tx.Commit()
 }
 
-func processAlbums(client spotify.Client, albums []spotify.SimpleAlbum, dbArtistID int64, tx db.DataMgr) {
+func processAlbums(albums []spotify.SimpleAlbum, dbArtistID int64, tx db.DataMgr) {
 	for _, album := range albums {
 		log.Debugf("process albums from %s", album.Artists[0].Name)
-		processAlbum(client, album, dbArtistID, tx)
+		processAlbum(album, dbArtistID, tx)
 	}
 }
 
-func processAlbum(client spotify.Client, album spotify.SimpleAlbum, dbArtistID int64, tx db.DataMgr) {
+func processAlbum(album spotify.SimpleAlbum, dbArtistID int64, tx db.DataMgr) {
 	log.Debugf("saving album %s", album.Name)
 	err := tx.EnsureAlbumExists(&db.Album{
 		ArtistID: dbArtistID,

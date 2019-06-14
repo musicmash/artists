@@ -6,9 +6,9 @@ import (
 )
 
 type Album struct {
-	ID         uint64 `json:"id"        gorm:"primary_key"            sql:"AUTO_INCREMENT"`
-	ArtistID   int64  `json:"artist_id" gorm:"unique_index:idx_album_art_id_name"`
-	Name       string `json:"name"      gorm:"unique_index:idx_album_art_id_name"`
+	ID       uint64 `json:"id"        gorm:"primary_key"            sql:"AUTO_INCREMENT"`
+	ArtistID int64  `json:"artist_id" gorm:"unique_index:idx_album_art_id_name"`
+	Name     string `json:"name"      gorm:"unique_index:idx_album_art_id_name"`
 }
 
 type AlbumMgr interface {

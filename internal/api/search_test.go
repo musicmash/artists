@@ -75,6 +75,7 @@ func TestAPI_Search_NameNotProvided(t *testing.T) {
 	// action
 	url := fmt.Sprintf("%v/v1/search", server.URL)
 	resp, err := http.Get(url)
+	defer func() { _ = resp.Body.Close() }()
 
 	// assert
 	assert.NoError(t, err)

@@ -81,7 +81,7 @@ func run(cmd *cobra.Command, args []string) error {
 		return err
 	}
 	log.Debugf("limit %v offset %v total %v", results.Artists.Limit, results.Artists.Offset, results.Artists.Total)
-	processArtists(client, sortArtistsByPopularity(results.Artists.Artists))
+	processArtists(sortArtistsByPopularity(results.Artists.Artists))
 
 	// load next part
 	for results.Artists.Total > results.Artists.Limit+results.Artists.Offset {
@@ -91,7 +91,7 @@ func run(cmd *cobra.Command, args []string) error {
 		}
 
 		log.Debugf("limit %v offset %v total %v", results.Artists.Limit, results.Artists.Offset, results.Artists.Total)
-		processArtists(client, sortArtistsByPopularity(results.Artists.Artists))
+		processArtists(sortArtistsByPopularity(results.Artists.Artists))
 	}
 
 	wg.Wait()
