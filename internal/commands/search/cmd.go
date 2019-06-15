@@ -39,7 +39,7 @@ func NewCommand() *cobra.Command {
 			db.DbMgr = db.NewMainDatabaseMgr()
 			artistJobs = make(chan *Job, opts.workersCount)
 
-			log.Info("ensuring that 'spotify' exists...")
+			log.Infof("ensuring that '%s' exists...", storeName)
 			return db.DbMgr.EnsureStoreExists(storeName)
 		},
 		RunE: run,
