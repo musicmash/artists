@@ -31,7 +31,7 @@ func main() {
 		},
 	}
 
-	rootCmd.PersistentFlags().StringVar(&configPath, "config", "/etc/musicmash/artists/artists.yaml", "Path to config")
+	rootCmd.PersistentFlags().StringVar(&configPath, "config", "/etc/musicmash/artists.yaml", "Path to config")
 	rootCmd.AddCommand(search.NewCommand())
 
 	if err := rootCmd.Execute(); err != nil {
