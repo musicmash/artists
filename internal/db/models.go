@@ -49,7 +49,7 @@ func CreateAll(db *gorm.DB) error {
 
 	if err := db.Debug().Model(&ArtistStoreInfo{}).AddUniqueIndex(
 		"idx_art_store_name_id",
-		"store_name", "store_id").Error; err != nil {
+		"artist_id", "store_name", "store_id").Error; err != nil {
 		return err
 	}
 
