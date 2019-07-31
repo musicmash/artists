@@ -14,6 +14,7 @@ func TestAPI_Healthz_OK(t *testing.T) {
 
 	// action
 	resp, err := http.Get(server.URL + "/healthz")
+	defer func() { _ = resp.Body.Close() }()
 
 	// arrange
 	assert.NoError(t, err)
@@ -26,6 +27,7 @@ func TestAPI_Healthz_Error(t *testing.T) {
 
 	// action
 	resp, err := http.Get(server.URL + "/healthz")
+	defer func() { _ = resp.Body.Close() }()
 
 	// arrange
 	assert.NoError(t, err)

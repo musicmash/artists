@@ -35,8 +35,8 @@ http:
 			Log:   false,
 		},
 		Log: LogConfig{
-			Level:         "DEBUG",
-			File:          "artists.log",
+			Level: "DEBUG",
+			File:  "artists.log",
 		},
 		HTTP: HTTPConfig{
 			Port: 5566,

@@ -15,7 +15,7 @@ type Artist struct {
 
 type ArtistStoreInfo struct {
 	ID        int64  `json:"-"         gorm:"primary_key"   sql:"AUTO_INCREMENT"`
-	ArtistID  int64  `json:"artist_id"`
+	ArtistID  int64  `json:"artist_id" gorm:"unique_index:idx_art_store_name_id"`
 	StoreName string `json:"name"      gorm:"unique_index:idx_art_store_name_id"`
 	StoreID   string `json:"id"        gorm:"unique_index:idx_art_store_name_id"`
 }
